@@ -1,6 +1,6 @@
 package com.demo.poc.entrypoint.books.service;
 
-import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import com.demo.poc.commons.properties.ApplicationProperties;
 import com.demo.poc.entrypoint.books.dto.request.BookInsertRequestDto;
 import com.demo.poc.entrypoint.books.dto.response.BookResponseDto;
 import com.demo.poc.entrypoint.books.mapper.BookRequestMapper;

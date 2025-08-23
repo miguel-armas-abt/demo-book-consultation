@@ -2,7 +2,7 @@ package com.demo.poc.entrypoint.books.repository.books;
 
 import com.demo.poc.commons.core.properties.restclient.RestClient;
 import com.demo.poc.commons.core.restclient.StreamingTransformer;
-import com.demo.poc.commons.custom.properties.ApplicationProperties;
+import com.demo.poc.commons.properties.ApplicationProperties;
 import com.demo.poc.commons.core.restclient.RetrofitFactory;
 import com.demo.poc.commons.core.restclient.utils.HeadersFiller;
 import com.demo.poc.entrypoint.books.repository.books.wrapper.BookInsertRequestWrapper;
