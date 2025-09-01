@@ -15,7 +15,7 @@ configuration:
         timeout: EXCELLENT
         concurrency: LOW
       request:
-        endpoint: http://localhost:8082/poc/mocks/v1/
+        endpoint: ${BOOKS_ENDPOINT}
         headers:
           provided:
             Accept: application/json,application/x-ndjson

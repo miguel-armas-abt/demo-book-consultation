@@ -1,9 +1,5 @@
 package com.demo.service.entrypoint.books.rest;
 
-import java.util.Map;
-
-import com.demo.commons.restserver.utils.RestServerUtils;
-import com.demo.commons.validations.BodyValidator;
 import com.demo.commons.validations.headers.DefaultHeaders;
 import com.demo.commons.validations.ParamValidator;
 import com.demo.service.entrypoint.books.dto.request.BookInsertRequestDto;
@@ -28,16 +24,13 @@ public class BookRestService {
 
   private final BookService bookService;
   private final ParamValidator paramValidator;
-  private final BodyValidator bodyValidator;
 
   @GetMapping(value = "/books", produces = MediaType.APPLICATION_NDJSON_VALUE)
   public Observable<BookResponseDto> findAll(HttpServletRequest servletRequest,
                                              HttpServletResponse servletResponse) {
 
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMapObservable(defaultHeaders -> bookService.findAll(headers))
+    return paramValidator.validateHeadersAndGet(servletRequest, DefaultHeaders.class)
+        .flatMapObservable(tupleHeaders -> bookService.findAll(tupleHeaders.getValue()))
         .doOnNext(response -> servletResponse.setStatus(200));
   }
 
@@ -46,10 +39,8 @@ public class BookRestService {
                                          HttpServletResponse servletResponse,
                                          @PathVariable(name = "id") Long id) {
 
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMapMaybe(defaultHeaders -> bookService.findById(headers, id))
+    return paramValidator.validateHeadersAndGet(servletRequest, DefaultHeaders.class)
+        .flatMapMaybe(tupleHeaders -> bookService.findById(tupleHeaders.getValue(), id))
         .doOnSuccess(response -> servletResponse.setStatus(200));
   }
 
@@ -58,10 +49,8 @@ public class BookRestService {
                             HttpServletResponse servletResponse,
                             @Valid @RequestBody BookInsertRequestDto book) {
 
-    Map<String, String> headers = RestServerUtils.extractHeadersAsMap(servletRequest);
-
-    return paramValidator.validateAndGet(headers, DefaultHeaders.class)
-        .flatMapCompletable(defaultHeaders -> bookService.save(headers, book))
+    return paramValidator.validateHeadersAndGet(servletRequest, DefaultHeaders.class)
+        .flatMapCompletable(tupleHeaders -> bookService.save(tupleHeaders.getValue(), book))
         .doOnComplete(() -> servletResponse.setStatus(201));
   }
 }
