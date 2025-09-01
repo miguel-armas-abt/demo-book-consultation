@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "b7395a56-a012-474a-bc2b-acd6af818647",
-		"name": "poc-books",
+		"name": "demo-book-consultation",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
 		"_exporter_id": "13773998"
 	},
@@ -19,7 +19,8 @@
 					{
 						"key": "channelId",
 						"value": "WEB",
-						"type": "text"
+						"type": "text",
+						"disabled": true
 					}
 				],
 				"url": {
@@ -91,7 +92,7 @@
 				],
 				"body": {
 					"mode": "raw",
-					"raw": "{\r\n    \"id\": 1084,\r\n    \"title\": \"MyBook\",\r\n    \"description\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\r\n    \"pageCount\": 500,\r\n    \"excerpt\": \"Lorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\nLorem lorem lorem. Lorem lorem lorem. Lorem lorem lorem.\\n\",\r\n    \"publishDate\": \"2025-05-21T15:58:44.1115383+00:00\"\r\n}",
+					"raw": "{\r\n    \"id\": 1084,\r\n    \"title\": \"MyBook\",\r\n    \"pageCount\": 500,\r\n    \"publishDate\": \"2025-05-21T15:58:44.1115383+00:00\"\r\n}",
 					"options": {
 						"raw": {
 							"language": "json"
