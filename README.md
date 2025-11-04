@@ -3,7 +3,7 @@
 
 ---
 
-## 📦 [books-v1](money-exchange-v1/README.md)
+## 📦 [books-v1](books-v1/README.md)
 - CRUD de libros.
 - La solución aplica el consumo de una API RESTful con Retrofit.
 

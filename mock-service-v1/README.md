@@ -1,63 +1,64 @@
+Reemplazar los siguientes valores donde corresponda:
 
-[← Regresar](../README.md) <br>
+| variable          | valor                                 |
+|-------------------|---------------------------------------|
+| `<APP_IMAGE>`     | `miguelarmasabt/mock-service:v1.0.1`  |
+| `<APP_CONTAINER>` | `mock-service-v1`                     |
+| `<APP_PORTS>`     | `8082:8082`                           |
+
+## ▶️ Local
+
+1. Descargar e instalar [commons-spring-boot-parent](https://github.com/miguel-armas-abt/commons-spring-boot-parent/README.md)
+2. Configurar las [variables de entorno](./variables.env) en el IDE.
+3. Ejecutar aplicación
 
 ---
 
-## ▶️ Despliegue local
+## ▶️ Docker
 
-1. Generar el compilado
-```sh
-mvn clean install
+1. Crear imagen
+```shell
+docker build -t <APP_IMAGE> -f ./Dockerfile .
 ```
 
-2. Configurar las [variables de entorno](./variables.env) en el IDE.
-
-2. Ejecutar aplicación
-
-
----
-
-## ▶️ Despliegue con Docker
-
-⚙️ Crear imagen/red
+2. Crear red
 ```shell
-docker build -t miguelarmasabt/mock-service:v1.0.1 -f ./Dockerfile .
 docker network create --driver bridge common-network
 ```
 
-⚙️ Ejecutar contenedor
+3. Ejecutar contenedor
 ```shell
-docker run --rm -p 8082:8082 --env-file ./variables.env --name mock-service-v1 --network common-network miguelarmasabt/mock-service:v1.0.1
+docker run --rm -p <APP_PORTS> --env-file ./variables.env --name <APP_CONTAINER> --network common-network <APP_IMAGE>
 ```
 
 ---
 
-## ▶️ Despliegue con Kubernetes
+## ▶️ Kubernetes
 
-⚙️ Encender Minikube
+1. Encender Minikube
 ```shell
 docker context use default
 minikube start
 ```
 
-⚙️ Crear imagen
+2. Crear imagen dentro del clúster
 ```shell
 eval $(minikube docker-env --shell bash)
-docker build -t miguelarmasabt/mock-service:v1.0.1 -f ./Dockerfile .
+docker build -t <APP_IMAGE> -f ./Dockerfile .
 ```
 
-⚙️ Crear namespace y aplicar manifiestos
+3. Crear namespace y aplicar manifiestos
 ```shell
-kubectl create namespace poc
-kubectl apply -f ./k8s.yaml -n poc
+kubectl create namespace demo
+kubectl apply -f ./k8s.yaml -n demo
 ```
 
-⚙️ Eliminar orquestación
+4. Eliminar orquestación
 ```shell
-kubectl delete -f ./k8s.yaml -n poc
+kubectl delete -f ./k8s.yaml -n demo
 ```
 
-⚙️ Port-forward
+5. Port-forward
 ```shell
-kubectl port-forward <pod-id> 8082:8082 -n poc
+kubectl port-forward <POD_ID> <APP_PORTS> -n demo
 ```
